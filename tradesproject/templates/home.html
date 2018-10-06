@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+    <base href="/">
+  
+      <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+      <link rel="stylesheet" href="/static/css/maxcdn_bootstrap.min.css">
+      <link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.css">
+      <link rel="stylesheet" href="/static/css/maxcdn_bootstrap.min.css">
+      <link rel="stylesheet" href="/static/css/style.css">
+
+      <script src="/static/js/lib/jquery.min.js"></script>
+      <script src="/static/js/lib/angular.min.js"></script>
+      <script src="/static/js/lib/angular-ui-router.min.js"></script>
+      <script src="/static/js/lib/moment-with-locales.js"></script>
+      <script src="/static/js/lib/ui-bootstrap-tpls-0.14.3.js"></script>
+      <script src="/static/js/lib/ui-bootstrap-tpls.js"></script>
+      <script src="/static/js/lib/bootstrap-datetimepicker.js"></script>
+      <script src="/static/js/lib/ngStorage.min.js"></script>
+      <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
+      
+      
+      <!-- Split Controllers -->
+      <script src="/static/js/app.js"></script>
+
+      <script type="text/javascript" src="/static/js/controllers/indexController.js"></script>
+      <script type="text/javascript" src="/static/js/controllers/loginController.js"></script>
+      <script type="text/javascript" src="/static/js/controllers/changepwdController.js"></script>
+      <script type="text/javascript" src="/static/js/controllers/traderRegisterController.js"></script>
+      <script type="text/javascript" src="/static/js/controllers/consumerRegisterController.js"></script>
+      <script type="text/javascript" src="/static/js/controllers/getpwdController.js"></script>
+      <script type="text/javascript" src="/static/js/controllers/overviewController.js"></script>
+      <script type="text/javascript" src="/static/js/controllers/aboutController.js"></script>
+      <script type="text/javascript" src="/static/js/controllers/contactController.js"></script>
+      <script type="text/javascript" src="/static/js/controllers/traderController.js"></script>
+      <script type="text/javascript" src="/static/js/controllers/createshopController.js"></script>
+
+      <!-- services -->
+      <script src="/static/js/services/get_service.js"></script>
+      <!-- services end -->
+
+      <script type="text/javascript" src="/static/js/directives/uploadFilesDirective.js"></script>
+      <script type="text/javascript" src="/static/js/directives/loaderDirective.js"></script>
+      <script type="text/javascript" src="/static/js/directives/restrictspacesDirective.js"></script>
+      <script type="text/javascript" src="/static/js/filters/filter.js"></script>
+      <!-- Split Controllers End -->
+
+</head>
+<body  ng-app="myApp" class="basewrapper responsive">
+
+  <div class="wrapper">
+    <div class="header responsive" ng-class="{largeWidth: myVar == 'ok'}">
+      <div class="row">
+        <div class="col-md-1 col-sm-* col-xs-*"></div>
+        
+        <div class="col-md-2 col-sm-4 col-xs-4">
+            <div class="logo_container">
+              <a ui-sref="/">
+                  <img src="/static/images/wood_header/room_logo.png" class="logo"/>
+                  <span>
+                    <h4>RoomApp</h4>
+                    <p>make it simple!</p>
+                  </span>
+              </a>
+            </div>
+          </div>
+          <div class="col-md-* col-sm-1 col-xs-1"></div>
+          <div class="col-md-9">
+              <ul class="nav navbar-nav mainmenu_bar">
+                <li>
+                    <a class="navbar-brand" ui-sref="/">HOME</a>
+                </li>
+                <li ui-sref-active="main_active"}">
+                    <a class="navbar-brand" ui-sref="about">ABOUT</a>
+                </li>
+                <li ui-sref-active="main_active">
+                    <a class="navbar-brand" ui-sref="contact">CONTACT</a>
+                </li>
+                <li ui-sref-active="main_active">
+                    <a class="navbar-brand" ui-sref="overview">OVERVIEW</a>
+                </li>
+                <li ui-sref-active="main_active">
+                    <a class="navbar-brand" ui-sref="rm2">ROOMAPP</a>
+                </li>
+              </ul>
+          </div>
+          <div class="col-md-5 col-sm-7 col-xs-7">
+              <ul class="nav nav-tabs iconmenu_bar">
+                <li>
+                  <a class=""  ui-sref="/">
+                    <span class="ic"  id="hm">
+                      <span>HOME <p class="tooltiptail"></p></span>
+                    </span>
+                  </a>
+                </li>
+                <li ui-sref-active="main_active"}">
+                  <a class="" ui-sref="about">
+                    <span class="ic"  id="ab">
+                      <span>ABOUT <p class="tooltiptail"></p></span>
+                    </span>
+                  </a>
+                </li>
+                <li ui-sref-active="main_active"}">
+                  <a class="" ui-sref="contact">
+                    <span class="ic"  id="ct">
+                      <span>CONTACT <p class="tooltiptail"></p></span>
+                    </span>
+                  </a>
+                </li>
+                <li ui-sref-active="main_active"}">
+                  <a class="" ui-sref="overview">
+                    <span class="ic"  id="ov">
+                      <span>OVERVIEW <p class="tooltiptail"></p></span>
+                    </span>
+                  </a>
+                </li>
+                <li ui-sref-active="main_active"}">
+                  <a class="" ui-sref="rm2">
+                    <span class="ic" title="roomapp" id="rmapp">
+                      <span>ROOMAPP <p class="tooltiptail"></p></span>
+                    </span>
+                  </a>
+                </li>
+              </ul>
+          </div>
+          <div class="col-md-*"></div>
+        </div>
+    </div> 
+    <div class="content">
+      <div class="sticky-content" ui-view></div>
+    </div>
+
+
+    <div class="footer responsive">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+          
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="" style="padding:7px 0 0 0; ">
+              <strong>All Rights Reserved &#169; 2017-2022</strong>
+              <a href="">Terms and Conditions</a>
+              <a href="">Privacy Policy</a>
+            </div>
+          </div>
+          
+          <div class="col-md-4 col-sm-4 col-xs-12">
+          </div>
+      </div>
+    </div>
+
+</body>
+
+</html>
+
+
+
+

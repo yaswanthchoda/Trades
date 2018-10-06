@@ -1,0 +1,273 @@
+<div data-loading class="col-md-12 loader"> </div>
+<div class="col-md-5">
+  <h3>Enter Data Here</h3>
+  <span class="req_msg">Please Fill out all required fields with (*) mark</span>
+  <div class="col-md-12 text-danger" ng-show="errmsg">{{errmsg}}</div>
+  <div class="col-md-12 text-success" ng-show="successmsg">{{successmsg}}</div>
+  <form name="dailyEntriesForm" ng-submit="add_entry(user)" role="form"  novalidate class="">
+
+    <div class="form-group" ng-show="record_id">
+      <label for="record_id">Record ID</label>
+      <div class="input-group">
+        <input type="text" name="record_id" class="form-control" placeholder="Record Id" ng-model="record_id" disabled></input>
+        <span class="input-group-addon"><span class="glyphicon glyphicon-info"></span></span>
+      </div>
+      <small class="text-muted" class="help-block"></small>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error' : dailyEntriesForm.entry_date.$invalid && !dailyEntriesForm.entry_date.$pristine }">
+      <label for="entry_date">Entry Date</label>
+      <div class="input-group date" id="datetimepicker1">
+          <input type="text" class="form-control" name="entry_date" data-format="yyyy-MM-dd hh:mm:ss" ng-model="user.entry_date" id="dt_picker" placeholder="Enter Date time"/>
+          <span class="input-group-addon"><span class="glyphicon-calendar glyphicon"></span></span>
+      </div>
+
+      <small class="text-muted" ng-show="dailyEntriesForm.entry_date.$invalid && !dailyEntriesForm.entry_date.$pristine" class="help-block">Enter Date time!</small>
+
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error' : dailyEntriesForm.item.$invalid && !dailyEntriesForm.item.$pristine }">
+      <label for="item">Name of Item <span>*</span></label>
+      <div class="input-group">
+        <input type="text" name="item" class="form-control" ng-model="user.item" placeholder="Enter Item" required>
+        <span class="input-group-addon"><span class="glyphicon glyphicon-tag"></span></span>
+
+        <input type="hidden" ng-model="user.id" name="id" >
+      </div>
+      <small class="text-muted" ng-show="dailyEntriesForm.item.$invalid && !dailyEntriesForm.item.$pristine" class="help-block">Whats the Item!</small>
+
+    </div>
+
+  <div class="form-group" ng-class="{ 'has-error' : dailyEntriesForm.items.$invalid && !dailyEntriesForm.items.$pristine }">
+    <label for="items">Number of Item(s) <span>*</span></label>
+    <div class="input-group">
+      <input type="text" name="items" class="form-control" placeholder="Enter number of items" ng-model="user.items" ng-pattern="/^[0-9]{1,7}$/" ng-class="{'error-box':(dailyEntriesForm.items.$invalid && (submitted || dailyEntriesForm.items.$touched || dailyEntriesForm.items.$dirty))}" maxlength="10" required></input>
+      <span class="input-group-addon"><span class="glyphicon glyphicon-question-sign"></span></span>
+    </div>
+    <small class="text-muted" ng-show="dailyEntriesForm.items.$invalid && !dailyEntriesForm.items.$pristine" class="help-block">Enter Qauntity(numbers only)!</small>
+  </div>
+
+  <div class="form-group" ng-class="{ 'has-error' : dailyEntriesForm.amt.$invalid && !dailyEntriesForm.amt.$pristine }">
+    <label for="amt">Cost of Item(Amount) <span>*</span></label>
+    <div class="input-group">
+      <input type="text" name="amt" class="form-control" placeholder="Enter Amount" ng-model="user.amt" ng-pattern="/^[0-9]{1,7}$/" ng-class="{'error-box':(dailyEntriesForm.amt.$invalid && (submitted || dailyEntriesForm.amt.$touched || dailyEntriesForm.amt.$dirty))}" ng-change="amount_validations(user.amt)" maxlength="10"required></input>
+      <span class="input-group-addon"><span class="glyphicon glyphicon-usd"></span></span>
+    </div>
+    <small class="text-muted" ng-show="dailyEntriesForm.amt.$invalid && !dailyEntriesForm.amt.$pristine" class="help-block">Enter Total Amount(numbers only)!</small>
+  </div>
+
+
+
+  <div class="form-group" ng-class="{ 'has-error' : dailyEntriesForm.take.$invalid && !dailyEntriesForm.take.$pristine }">
+    <label for="take">Room Members(selected members shares this item) <span>*</span></label>
+    <div class="input-group">
+      <select ng-model="take" 
+              ng-change="parts(user,take)" 
+              name="take" class="form-control" 
+              multiple 
+              ng-disabled="dailyEntriesForm.amt.$invalid && !dailyEntriesForm.amt.$pristine"
+              ng-selected="select_in_edit(user_data.pk)"
+              id="sel">
+        <option ng-repeat="user_data in users_list" value="{{user_data.pk}}">{{user_data.fields.person_name}} ({{user_data.fields.person_role}})
+        </option>
+      </select>
+
+
+      <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+    </div>
+    <small class="text-muted" ng-show="dailyEntriesForm.take.$invalid && !dailyEntriesForm.take.$pristine" class="help-block">Select atleast one!</small>
+  </div>
+
+  
+
+  <div class="form-group" ng-show="take.length != 0">
+
+    <label class="col-md-12">Divided Amount(distribute(s) amount as per sharing) <span>*</span></label>
+    <div class="split_div form-group">
+    <table class="ctab">
+    <tr ng-repeat="t in take_list" class="col-md-6">
+          <th class="col-md-4">
+          <label for="{{t.name}}">{{t.name}}</label>
+          </th>
+          <td >
+            <div class="input-group">
+              <input  type="text" 
+                      class="col-md-8"
+                      name="{{t.name}}" 
+                      ng-model="t.val"  
+                      ng-change="distribution_change_fun(user.amt)" 
+                      ng-class="{'error-box':(dailyEntriesForm.amt.$invalid && (submitted || dailyEntriesForm.amt.$touched || dailyEntriesForm.amt.$dirty))}" 
+                      maxlength="10" 
+                      ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" 
+                      
+                      required>
+              <span class="input-group-addon"><span class="glyphicon glyphicon-usd"></span></span> 
+
+            </div>
+          <small class="text-muted" ng-show="dailyEntriesForm.{{t.name}}.$invalid && !dailyEntriesForm.{{t.name}}.$pristine" class="help-block">must be number!</small>
+          </td>
+    </tr>
+    </table>
+    </div>
+    <p ng-show="check_amt" class="help-block">Total Amount({{user.amt}}) is not equals to Divided amount!</p>
+    
+    
+  </div>
+
+
+
+
+  <div class="form-group" ng-class="{'has-error' : dailyEntriesForm.sign.$invalid && !dailyEntriesForm.sign.$pristine }">
+    <label for="sign">Signature of Payee <span>*</span></label>
+    <!-- <div class="input-group">
+      <input type="text" name="sign" class="form-control" ng-model="user.sign" placeholder="Enter Signature" required>
+      <span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></span>
+    </div> -->
+
+    <!-- #################### -->
+    <div class="input-group">
+      <select name="sign" class="Sitedropdown form-control selectpicker"          
+          ng-model="user.sign" 
+          ng-options="user_data.pk as user_data.fields.person_name for user_data in users_list"
+          required
+          id="sel_sign">
+          <!-- user_data.pk as user_data.fields.person_name for user_data in users_list --> 
+        <option value="">Select Payee's Signature</option> 
+      </select> 
+      <span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></span>
+    </div>
+
+
+    <!-- ##############33###3 -->
+    <small class="text-muted" ng-show="dailyEntriesForm.sign.$invalid && !dailyEntriesForm.sign.$pristine" class="help-block">Signature is required!</small>
+    <small class="text-muted" ng-hide="sign_found" class="help-block">Sign Doesnot Exists in Room Members list!!</small>
+  </div>
+
+  <div class="form-group" >
+  <!-- ng-class="{'has-error' : dailyEntriesForm.description.$invalid && !dailyEntriesForm.description.$pristine }" -->
+    <label for="description">Description</label>
+    <div class="input-group">
+      <textarea rows="5" cols="50" name="description" class="form-control" ng-model="user.description" id="description" placeholder="Enter Some descriptions ...."></textarea>
+      <span class="input-group-addon"><span class="glyphicon glyphicon-comment"></span></span>
+    </div>
+    <!-- <small class="text-muted" ng-show="dailyEntriesForm.description.$invalid && !dailyEntriesForm.description.$pristine" class="help-block">Descriptions!</small> -->
+  </div>
+
+  <button type="submit" class="btn btn-info" ng-model="sub"  ng-class="myclass()" ng-disabled="dailyEntriesForm.$invalid || check_amt || take.length == 0">Add</button>
+  </form> 
+</div>
+
+<div class="col-md-1"></div>
+
+<div class="col-md-5">
+  <h3>Check Stats Here</h3>
+  <div class="col-md-12">
+    <div class=" form-group">
+      <label for="per_name">Person Name</label>
+      <div class="input-group">
+        <input type="text" name="per_name" class="form-control" ng-model="person_name" disabled required/>
+        <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+      </div>
+      <p ng-show="dailyEntriesForm.per_name.$invalid && !dailyEntriesForm.per_name.$pristine" class="help-block">Person Name is required!</p>
+    </div>
+    <button ng-click="statics(person_name)" class="btn btn-info pull-left">Statics</button>
+  </div>
+
+  <div class="col-md-12 rep_div" ng-show="report_div">
+    <h3>Your Stats</h3>
+    <h4>Hello {{person_name}}</h4>
+    <table class="mytable table table-hover">
+      <tbody class="tbl_per">
+        <tr>
+          <th>Your Expenses are</th>
+          <td>
+            <span class="tbl_date"><strong>{{expense | number:2}}</strong></span>
+          </td>
+        </tr>
+        <tr>
+          <th>You have Spent</th>
+          <td>
+          <span class="tbl_date"><strong>{{spent  | number:2}}</strong></span>
+          </td>
+        <tr>
+        <tr>
+          <th>Final Report</th>
+          <td>
+          <span">{{report.salutation}} 
+                  <span class="tbl_per"><strong>{{report.name}}</strong></span> 
+                  {{report.message}} 
+                  <span class="tbl_date"><strong>{{report.amount | number:2}}</strong></span>
+          </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+
+<div class="col-md-12"> 
+    <!-- <h3>Room Expenditure Table</h3> -->
+    <div class="row" id="search_div">
+      <div class="col-md-10"><h3>Room Expenditure Table</h3></div>
+      <div class="col-md-2">
+        <div class=" form-group">
+          <div class="input-group">
+            <input type="text" ng-model="searchKeyword" class="form-control" id="searchKeyword" name="searchKeyword" placeholder="search here..." />
+            <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row user_note">
+      <div class="col-md-10">
+        * Edit and Delete options are enabled for records, which are created by the current user only.
+      </div>
+    </div>
+    <table class="mytable table table-hover">
+      <thead class="sticky">
+        <tr>
+          <th>Record Id</th>
+          <th>Created Date</th>
+          <th>Entry Date</th>
+          <th>Name of Item</th>
+          <th>Quantity of Item</th>
+          <th>Cost of Item</th>
+          <th>Payee's Signature</th>
+          <th>No of Persons</th>
+          <th>Description</th>
+          <th>Persons - Amount</th>
+          <th>Edit Record</th>
+          <th>Delete Record</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="room in data  | filter: searchKeyword ">
+          <td>{{room.item_info.pk}}</td>
+          <td>{{room.item_info.fields.created_date  | date: "dd/MM/yy HH:mm"}}</td>
+          <td class="tbl_date">{{room.item_info.fields.entry_date  | date: "dd/MM/yy HH:mm"}}</td>
+          <td>{{room.item_info.fields.item_name}}</td>
+          <td>{{room.item_info.fields.items_count}}</td>
+          <td class="tbl_amt"><strong>{{room.item_info.fields.item_cost}}</strong></td>
+          <td class="tbl_per"><strong>{{room.item_info.fields.payee}}</strong></td>
+          <td>{{room.item_info.fields.no_of_persons}}</td>
+          <td>{{room.item_info.fields.notes}}</td>
+          <td>
+              <div class="udata" ng-repeat="r in room.persons_info">
+                <span class="tbl_per">{{r.username}} -</span>
+                <span class="tbl_amt"><prev><img src="static/images/rupee.png" class="rupee" /> {{r.amount_to_pay  | number:2}}<prev></span>
+              </div>
+          </td>
+          <td>
+          <button ng-click="edit_rec(room.item_info.pk)" class="btn btn-info pull-left" ng-disabled="room.item_info.fields.record_auth_person != login_id">edit</button>
+          </td>
+          <td>   
+          <button ng-click="delete_rec(room.item_info.pk)" class="btn btn-danger pull-right" ng-disabled="room.item_info.fields.record_auth_person != login_id">delete</button>
+          </td>
+        </tr>
+      </tbody>
+     </table>
+</div>
+
+

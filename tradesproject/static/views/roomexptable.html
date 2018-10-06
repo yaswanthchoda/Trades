@@ -1,0 +1,39 @@
+  <div class="col-md-12"> 
+      <h3>Room Expenditure Table</h3>
+      <table class="table table-hover">
+        <tr>
+          <th>s.no</th>
+          <th>date</th>
+          <th>item</th>
+          <th>no.of items</th>
+          <th>amount</th>
+          <th>sign</th>
+          <th>No of Persons</th>
+          <th>Persons - Amount</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+        <tr ng-repeat="room in data">
+          <td>{{room.item_info.pk}}</td>
+          <td>{{room.item_info.fields.entry_date}}</td>
+          <td>{{room.item_info.fields.item_name}}</td>
+          <td>{{room.item_info.fields.items_count}}</td>
+          <td>{{room.item_info.fields.item_cost}}</td>
+          <td>{{room.item_info.fields.payee}}</td>
+          <td>{{room.item_info.fields.no_of_persons}}</td>
+          <td>
+              <div class="udata" ng-repeat="r in room.persons_info">
+                <span class="uname">{{r.username}} -</span>
+                <span class="uamount"><prev>Rs. {{r.amount_to_pay}} /-<prev></span>
+              </div>
+          </td>
+          
+          <td>
+          <button ng-click="edit_rec(room.item_info.pk)" class="btn btn-info pull-left">edit</button>
+          </td>
+          <td>   
+          <button ng-click="delete_rec(room.item_info.pk)" class="btn btn-danger pull-right">delete</button>
+          </td>
+        </tr>
+       </table>
+   </div>

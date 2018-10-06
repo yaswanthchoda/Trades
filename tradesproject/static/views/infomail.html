@@ -1,0 +1,75 @@
+<!-- <div data-loading class="col-md-12 loader"> </div> -->
+<!-- <div class="col-md-12 col-sm-12 col-xs-12 loader">
+  
+  <img src="static/images/loaders/lo.gif"/>
+  <p class="loading_msg">Processing...</p> -->
+  <!-- <img src="http://www.nasa.gov/multimedia/videogallery/ajax-loader.gif"/> -->
+<!-- </div> -->
+
+<div class="col-md-5">    
+  <h3>Send Mail</h3>
+  <span class="req_msg">Please Fill out all required fields with (*) mark</span>
+  <div class="col-md-12 text-danger" ng-show="errmsg">{{errmsg}}</div>
+  <div class="col-md-12 text-success" ng-show="successmsg">{{successmsg}}</div>
+  <form name="infoMailForm" ng-submit="infomail_send(infomail.user_email, infomail.subject, infomail.description)"  novalidate>
+    <div class="form-group" ng-class="{ 'has-error' : infoMailForm.user_email.$invalid && !infoMailForm.user_email.$pristine }">
+      <label for="user_email">Email <span>*</span></label>
+      <div class="input-group">
+        <input type="email" name="user_email" class="form-control" ng-model="infomail.user_email"  id="user_email" placeholder="Enter Email" required>
+        <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+      </div>
+      <small class="text-muted" ng-show="infoMailForm.user_email.$invalid && !infoMailForm.user_email.$pristine" class="help-block">Email required!</small>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error' : infoMailForm.subject.$invalid && !infoMailForm.subject.$pristine }">
+      <label for="subject">Subject <span>*</span></label>
+      <div class="input-group">
+        <input type="text" name="subject" class="form-control" ng-model="infomail.subject" placeholder="Enter Subject" required>
+        <span class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></span>
+      </div>
+      <small ng-show="infoMailForm.subject.$invalid && !infoMailForm.subject.$pristine" class="help-block">Subject</small>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error' : infoMailForm.description.$invalid && !infoMailForm.description.$pristine }">
+        <label for="description">Description <span>*</span></label>
+        <div class="input-group">
+          <textarea rows="5" cols="50" name="description" class="form-control" ng-model="infomail.description" id="description" placeholder="Enter Description ...." ></textarea>
+          <span class="input-group-addon"><span class="glyphicon glyphicon-comment"></span></span>
+        </div>
+        <small class="text-muted" ng-show="infoMailForm.description.$invalid && !infoMailForm.description.$pristine" class="help-block">Description required!</small>
+    </div>
+
+    <div class="input-group">
+      <button type="submit" class="btn btn-info" ng-disabled="infoMailForm.$invalid">send</button>
+    </div>
+  </form>
+</div>
+
+<div class="col-md-1"></div>
+
+<div class="col-md-5">
+  <!-- <button class="btn btn-warning" ng-click="sql_file()">SQL File</button> -->
+  <h3>Get Backup</h3>
+
+  <div style="padding: 7px 0 0px 0 !important;">
+    <h5>Get mail with backup files</h5>
+    <h6><div style="padding: 0 0 8px 0;line-height: 2em;" class="col-md-12 text-success" ng-show="excel_msg">{{excel_msg}}</div></h6>
+    <button class="btn btn-warning" ng-click="mail_excel(person_email)">Get Email Excel</button>
+  </div>
+
+  <div style="padding: 7px 0 0px 0 !important;">
+    <h5>Download Excel sheet Backup</h5>
+    <a href="/excel_file/{{room_id}}/{{login_id}}/" download><button class="btn btn-warning"> Download Excelsheet</button></a>
+  </div>
+
+  <div class="col-md-12 note_div">
+    <h3 style="color:navy !important;"">Note:-</h3>
+    <p>
+      <strong>It is a BETA version,so our sincere suggestion is to take backup at end of the day
+      by click on</strong>
+    </p>
+    <button class="btn"> Get Email Excel</button> or
+    <button class="btn"> Download Excelsheet</button>
+  </div>
+
+</div>

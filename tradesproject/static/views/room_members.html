@@ -1,0 +1,41 @@
+<!-- <a href="" id="dload" ng-click="dload()" download>click</a> -->
+<div class="col-md-12">
+    <h3>Room Members Information</h3>
+    <div class="row user_note">
+      <div class="col-md-10">
+        * Login Room Member can update only his own information.
+      </div>
+    </div>
+    <table class="mytable table table-hover">
+      <tr>
+        <th>Id</th>
+        <th>Join Date</th>
+        <th>Name</th>
+        <th>Email_id</th>
+        <th>Mobile</th>
+        <th>Address</th>
+        <th>Designation</th>
+        <th>Role</th>
+        <th>Description</th>
+        <th>Profile Picture</th>
+        <th>Zipcode</th>
+        <th>Edit</th>
+      </tr>
+      <tr ng-repeat="room in users_list">
+        <td>{{room.pk}}</td>
+        <td class="tbl_date">{{room.fields.created_date  | date: "dd/MM/yy HH:mm"}}</td>
+        <td class="tbl_per"><strong>{{room.fields.person_name}}</strong></td>
+        <td class="tbl_per">{{room.fields.person_email}}</td>
+        <td class="tbl_amt">{{room.fields.person_mobile}}</td>
+        <td>{{room.fields.person_address}}</td>
+        <td>{{room.fields.person_designation}}</td>
+        <td class="tbl_per"><strong>{{room.fields.person_role}}</strong></td>
+        <td>{{room.fields.person_description}}</td>
+        <td><img src="{{room.fields.person_picture}}" style="margin: 0 0px 0 18px;" class="profile_picture thumb_nail" /></td>
+        <td>{{room.fields.person_zipcode}}</td>
+        <td>
+        <button ng-click="edit_member_details(room.pk)" ng-disabled="login_id!=room.pk" class="btn btn-info pull-left">edit</button>
+        </td>
+      </tr>
+     </table>
+</div>

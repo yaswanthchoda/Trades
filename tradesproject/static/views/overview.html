@@ -1,0 +1,107 @@
+<div class="col-md-1"></div>
+<div  class="col-md-10 subcontent1 responsive">
+<div class="col-md-12">
+      <h3 style="text-align: center;">Admin Login Form</h3>
+      <span class="req_msg">Please Fill out all required fields with (*) mark</span>
+      <div class="col-md-12 text-danger" ng-show="errmsg">{{errmsg}}</div>
+      <div class="col-md-12 text-success" ng-show="successmsg">{{successmsg}}</div>
+      <form name="AdminloginForm" ng-submit="adminlogin(admin)" novalidate>
+
+        <div class="form-group col-md-3" ng-class="{ 'has-error' : AdminloginForm.admin_name.$invalid && !AdminloginForm.admin_name.$pristine }">
+          <label for="admin_name">Admin Name <span>*</span></label>
+          <div class="input-group">
+            <input type="admin_name" class="form-control" ng-model="admin.admin_name" name="admin_name" id="admin_name" placeholder="Enter Admin Name" required>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+          </div>
+          <small class="text-muted" ng-show="AdminloginForm.admin_name.$invalid && !AdminloginForm.admin_name.$pristine" class="help-block">Admin name required!</small>
+        </div>
+
+        <div class="form-group col-md-3" ng-class="{ 'has-error' : AdminloginForm.admin_email.$invalid && !AdminloginForm.admin_email.$pristine }">
+          <label for="admin_email">Email <span>*</span></label>
+          <div class="input-group">
+            <input type="email" class="form-control" ng-model="admin.admin_email" name="admin_email" id="admin_email" placeholder="Enter Email" required>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+          </div>
+          <small class="text-muted" ng-show="AdminloginForm.admin_email.$invalid && !AdminloginForm.admin_email.$pristine" class="help-block">Email required!</small>
+        </div>
+
+        <div class="form-group col-md-3" ng-class="{ 'has-error' : AdminloginForm.admin_password.$invalid && !AdminloginForm.admin_password.$pristine }">
+          <label for="admin_password">Password <span>*</span></label>
+          <div class="input-group">
+            <input type="password" class="form-control" ng-model="admin.admin_password" name="admin_password" id="admin_password" placeholder="admin_password" required>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+          </div>
+          <small class="text-muted" ng-show="AdminloginForm.admin_password.$invalid && !AdminloginForm.admin_password.$pristine" class="help-block">Password required!</small>
+        </div>
+
+        <div class="form-group col-md-3">
+          <label for=""> </label>
+          <div class="input-group">
+            <button type="submit" class="btn btn-info col-md-12" ng-disabled="AdminloginForm.$invalid">Admin Login</button>
+            
+            <div ng-show="super_user">
+              <a ng-click="admin_logout()">Logout</a>
+            </div>
+
+          </div>
+        </div>
+      </form>
+</div>
+
+<div class="col-md-12">
+  <div class="row" id="search_div">
+    <div class="col-md-10"><h4>Registered Rooms : {{room_count}}</h4></div>
+    <div class="col-md-10"><h3>Rooms list Registered with our Application</h3></div>
+    <div class="col-md-2">
+      <div class=" form-group">
+        <div class="input-group">
+          <input type="text" ng-model="searchKeyword" class="form-control" id="searchKeyword" name="searchKeyword" placeholder="search here..." />
+          <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <table class="mytable table table-hover table-bordered">
+      <thead class="sticky">
+        <tr>
+          <th>S. No</th>
+          <th>Created Date</th>
+          <th>Room Id</th>
+          <th>Room Name</th>
+          <th ng-show="super_user">Admin mailid</th>
+          <th ng-show="super_user">Admin Mobile</th>
+          <th ng-show="super_user">Admin Name</th>
+        </tr>
+      </thead>
+      <!-- <tbody>
+        <tr ng-repeat="room in data  | filter: searchKeyword ">
+          <td>{{room.pk}}</td>
+          <td class="tbl_date">{{room.fields.created_date | date: "yyyy/MM/dd HH:mm:ss"}}</td>
+          <td>{{room.fields.room_code}}</td>
+          <td>{{room.fields.room_name}}</td>
+          <td ng-show="super_user">{{room.fields.admin_mail}}</td>
+          <td ng-show="super_user">{{room.fields.admin_mobile}}</td>
+          <td ng-show="super_user">{{room.fields.admin_name}}</td>
+        </tr>
+      </tbody> -->
+      <tbody>
+        <tr ng-repeat="room in data  | filter: searchKeyword ">
+          <td>{{room.id}}</td>
+          <td class="tbl_date">{{room.created_date | date: "yyyy/MM/dd HH:mm:ss"}}</td>
+          <td>{{room.room_code}}</td>
+          <td>{{room.room_name}}</td>
+          <td ng-show="super_user">{{room.admin_mail}}</td>
+          <td ng-show="super_user">{{room.admin_mobile}}</td>
+          <td ng-show="super_user">{{room.admin_name}}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+<div class="ui col-md-*">
+ <!--  <div ng-repeat="p in path">
+    <img src="{{p.fields.image_folderpath}}" />
+  </div> -->
+</div>
+</div>
+<div class="ui col-md-1"></div>
+

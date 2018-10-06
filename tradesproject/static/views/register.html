@@ -1,0 +1,173 @@
+<div class="ui col-md-3"></div>
+<div class="ng col-md-6  subcontent responsive">
+<div class="col-md-12">
+  <h3 style="text-align: center;">{{form_title}}</h3>
+  <span class="req_msg">Please Fill out all required fields with (*) mark</span>
+  <div class="col-md-12 text-danger" ng-show="errmsg">{{errmsg}}</div>
+  <div class="col-md-12 text-success" ng-show="successmsg">{{successmsg}}</div>
+  <form name="registerForm" ng-submit="register(reg_user)"  novalidate>
+    <div class="form-group" ng-class="{ 'has-error' : registerForm.first_name.$invalid && !registerForm.first_name.$pristine }">
+      <label for="first_name">First Name <span>*</span></label>
+      <div class="input-group">
+        <input type="text" class="form-control" name="first_name" ng-model="reg_user.first_name" id="first_name" placeholder="Enter First Name" required>
+        <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+      </div>
+      <small class="text-muted" ng-show="registerForm.first_name.$invalid && !registerForm.first_name.$pristine" class="help-block">First Name required!</small>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error' : registerForm.middle_name.$invalid && !registerForm.middle_name.$pristine }">
+      <label for="middle_name">Middle Name <span>*</span></label>
+      <div class="input-group">
+        <input type="text" class="form-control" name="middle_name" ng-model="reg_user.middle_name" id="middle_name" placeholder="Enter Middle Name" required>
+        <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+      </div>
+      <small class="text-muted" ng-show="registerForm.middle_name.$invalid && !registerForm.middle_name.$pristine" class="help-block">Middle Name required!</small>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error' : registerForm.last_name.$invalid && !registerForm.last_name.$pristine }">
+      <label for="last_name">Last Name <span>*</span></label>
+      <div class="input-group">
+        <input type="text" class="form-control" name="last_name" ng-model="reg_user.last_name" id="last_name" placeholder="Enter Last Name" required>
+        <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+      </div>
+      <small class="text-muted" ng-show="registerForm.last_name.$invalid && !registerForm.last_name.$pristine" class="help-block">Last Name required!</small>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error' : registerForm.email.$invalid && !registerForm.email.$pristine }">
+      <label for="email">Email <span>*</span></label>
+      <div class="input-group">
+        <input type="email" class="form-control" ng-model="reg_user.email" name="email" id="email" placeholder="Enter Email" required>
+        <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+      </div>
+      <small class="text-muted" ng-show="registerForm.email.$invalid && !registerForm.email.$pristine" class="help-block">Email required!</small>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error' : registerForm.password.$invalid && !registerForm.password.$pristine }">
+      <label for="password">Password <span>*</span></label>
+      <div class="input-group">
+        <input type="password" class="form-control" ng-model="reg_user.password" name="password" id="password" placeholder="Password" required>
+        <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+      </div>
+      <small class="text-muted" ng-show="registerForm.password.$invalid && !registerForm.password.$pristine" class="help-block">Password required!</small>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error' : registerForm.confirmpassword.$invalid && !registerForm.confirmpassword.$pristine }">
+      <label for="ConfirmPassword">Confirm Password <span>*</span></label>
+      <div class="input-group">
+          <input type="password"
+                        class="form-control"
+                        id="confirmpassword"
+                        name="confirmpassword"
+                        ng-model="reg_user.confirm_password"
+                        ng-pattern="/^[a-zA-Z0-9]*$/"
+                        placeholder="Re-Enter Password" required>
+          <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+      </div>
+      <small class="text-muted" ng-show="reg_user.confirm_password != reg_user.password && !registerForm.confirmpassword.$pristine">Confirm Password does not match to Password</small><br>
+      <small class="text-muted" ng-show="registerForm.confirmpassword.$invalid && !registerForm.confirmpassword.$pristine" class="help-block">Confirm Password required!</small>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error' : registerForm.mobileNumber.$invalid && !registerForm.mobileNumber.$pristine }">
+      <label for="mobileNumber">Mobile Number <span>*</span></label>
+      <div class="input-group">
+        <input type="text"
+               class="form-control"
+               id="mobileNumber"
+               name="mobileNumber"
+               placeholder="Enter your mobile number"
+               ng-model="reg_user.mobile"
+               ng-pattern="/^[0-9]{10}$/"
+               ng-class="{'error-box':(registrationForm.mobileNumber.$invalid && (submitted || registrationForm.mobileNumber.$touched || registrationForm.mobileNumber.$dirty))}"
+               required maxlength="10">
+        <span class="input-group-addon"><span class="glyphicon glyphicon-earphone"></span></span>
+      </div>
+      <small class="text-muted" ng-show="registerForm.mobileNumber.$invalid && !registerForm.mobileNumber.$pristine" class="help-block">Mobile Number required!</small>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error' : registerForm.zipcode.$invalid && !registerForm.zipcode.$pristine }">
+        <label for="zipcode">Zipcode <span>*</span></label>
+        <div class="input-group">
+          <input type="text"
+                 class="form-control"
+                 id="zipcode"
+                 name="zipcode"
+                 placeholder="Enter your zipcode"
+                 ng-model="reg_user.zipcode"
+                 ng-pattern="/^[0-9]{6}$/"
+                 ng-class="{'error-box':(registrationForm.zipcode.$invalid && (submitted || registrationForm.zipcode.$touched || registrationForm.zipcode.$dirty))}"
+                 required maxlength="6">
+          <span class="input-group-addon"><span class="glyphicon glyphicon-road"></span></span>
+        </div>
+        <small class="text-muted" ng-show="registerForm.zipcode.$invalid && !registerForm.zipcode.$pristine" class="help-block">Zipcode required!</small>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error' : registerForm.gender.$invalid && !registerForm.gender.$pristine }">
+      <label for="gender">Gender <span>*</span></label>
+      <div class="input-group">
+      <select ng-model="reg_user.gender" id="gender" name="gender" placeholder="Select Gender" class="form-control" required>
+        <option value="">Select Gender</option>
+        <option selected value="M">Male</option>
+        <option value="F">Female</option>
+        <!-- <option value="3">Guest</option> -->
+      </select>
+      <span class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></span>
+      <small ng-show="registerForm.gender.$invalid && !registerForm.gender.$pristine" class="help-block">select gender!</small>
+      </div>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error' : registerForm.user_type.$invalid && !registerForm.user_type.$pristine }">
+      <label for="user_type">Register as <span>*</span></label>
+      <div class="input-group">
+      <select ng-model="reg_user.is_trader" id="user_type" name="is_trader" placeholder="Select Gender" class="form-control" required>
+        <option selected value="{{user_type_value}}">{{user_type}}</option>
+      </select>
+      <span class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></span>
+      <small ng-show="registerForm.user_type.$invalid && !registerForm.user_type.$pristine" class="help-block">select user_type!</small>
+      </div>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error' : registerForm.address.$invalid && !registerForm.address.$pristine }">
+      <label for="address">Address <span>*</span></label>
+      <div class="input-group">
+        <input type="text" class="form-control" name="address" ng-model="reg_user.address" id="address" placeholder="Enter Address" required>
+        <span class="input-group-addon"><span class="glyphicon glyphicon-home"></span></span>
+      </div>
+      <small class="text-muted" ng-show="registerForm.address.$invalid && !registerForm.address.$pristine" class="help-block">Address required!</small>
+    </div>
+
+    <!-- <div class="form-group" ng-class="{ 'has-error' : registerForm.designation.$invalid && !registerForm.designation.$pristine }">
+      <label for="designation">Designation <span>*</span></label>
+      <div class="input-group">
+        <input type="text" class="form-control" name="designation" ng-model="reg_user.designation" id="designation" placeholder="Enter Designation" required>
+        <span class="input-group-addon"><span class="glyphicon glyphicon-briefcase"></span></span>
+      </div>
+      <small class="text-muted" ng-show="registerForm.designation.$invalid && !registerForm.designation.$pristine" class="help-block">Designation required!</small>
+    </div>
+
+   <div class="form-group" ng-class="{ 'has-error' : registerForm.avatar.$invalid && !registerForm.avatar.$pristine }">
+      <label for="avatar">Profile Picture</label>
+      <div class="input-group">
+        <input type="file" class="form-control" name="avatar" ng-model="reg_user.address" id="avatar" required/>
+        <span class="input-group-addon"><span class="glyphicon glyphicon-picture"></span></span>
+      </div>
+      <small class="text-muted" ng-show="registerForm.avatar.$invalid && !registerForm.avatar.$pristine" class="help-block">Profile Picture required!</small>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error' : registerForm.description.$invalid && !registerForm.description.$pristine }">
+        <label for="description">Description</label>
+        <div class="input-group">
+          <textarea rows="5" cols="50" name="description" class="form-control" ng-model="reg_user.description" id="description" placeholder="Enter Description ...." required></textarea>
+          <span class="input-group-addon"><span class="glyphicon glyphicon-comment"></span></span>
+        </div>
+        <small class="text-muted" ng-show="registerForm.description.$invalid && !registerForm.description.$pristine" class="help-block">Description required!</small>
+    </div> -->
+
+    <button type="submit" class="btn btn-info" ng-disabled="registerForm.$invalid || reg_user.confirm_password != reg_user.password">Register</button>
+  </form>
+  </div>
+
+  <div class="col-md-12">
+    <a ui-sref="login">Login</a>
+  </div>
+</div>
+<div class="ui col-md-3"></div>

@@ -1,0 +1,154 @@
+<div class="col-md-12 sub_header">
+    <div class="col-md-7">
+      <nav class="navbar navbar-inverse" ng-class="{bl: !navCollapsed && 'in'}" role="navigation">
+        <div class="navbar-header pull-left">
+          <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+              <span class="glyphicon glyphicon-menu-hamburger"></span>
+          </button>
+        </div>
+
+        <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'"> <!-- dr_sub_menu -->
+          <ul class="nav navbar-nav">
+            <li ng-if="role == 'admin'" ng-class="{activate: $state.includes('adminpage')}">
+              <a  class="navbar-brand" 
+                  ng-click='navCollapsed = true' 
+                  ui-sref="adminpage">Admin Page</a>
+            </li>
+            <li ng-class="{activate: $state.includes('rm2')}">
+              <a  class="navbar-brand" 
+                  ng-click='navCollapsed = true' 
+                  ui-sref="rm2">Daily Entries</a>
+            </li>
+            <li ng-class="{activate: $state.includes('members')}">
+              <a  class="navbar-brand" 
+                  ng-click='navCollapsed = true' 
+                  ui-sref="members">Room Members</a>
+            </li>
+            <li ng-class="{activate: $state.includes('infomail')}">
+              <a  class="navbar-brand" 
+                  ng-click='navCollapsed = true' 
+                  ui-sref="infomail">Email</a>
+            </li>
+            <li ng-class="{activate: $state.includes('roominfo')}">
+              <a  class="navbar-brand" 
+                  ng-click='navCollapsed = true' 
+                  ui-sref="roominfo">Room Information</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="col-md-3">
+        <!-- <span class="admin_room_logo">
+          <h5>{{room_name}}</h5>
+          <p>{{room_code}}</p>
+        </span> -->
+    </div>
+
+    <div class="col-md-2 pull-right">
+        <div class="pf_div">
+          <div class="row pf_brand">
+            <div class="col-md-8 col-sm-8 col-xs-8">
+              <span>
+                <h5>{{room_name}}</h5>
+                <p>{{room_code}}</p>
+              </span>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-4">
+              <img src="{{profile_pic}}" id="pn" class="profile_picture" />
+            </div>
+          </div>
+
+          <!-- <div class="row">
+            <table>
+              <tr>
+                  <td>
+                      <span>
+                        <h5>{{room_name}}</h5>
+                        <p>{{room_code}}</p>
+                      </span>
+                  </td>
+                  <!- <td><span class="my_name">Yaswanth Kumar Choda({{person_name}})</span></td> ->
+                  <td><img src="{{profile_pic}}" id="pn" class="profile_picture" /></td>
+              </tr>
+            </table>
+          </div> -->
+
+          <div class="row pro_menu" style="display: none;">
+            <table class="table profile_tab">
+              <tr>
+                <td>
+                    <!-- <label class="custom-file-upload">
+                      <input type="file" id="chng_pp" name="profile_pic" ng-model="pp" style="display:None;"/>
+                      <img src="{{profile_pic}}" class="profile_pic"/>
+                    </label> -->
+                    <label class="custom-file-upload">
+                      <input type="file" name="file" id="chng_pp" onchange="angular.element(this).scope().photoChanged(this.files)" style="display:None;"/>
+                      <img ng-src="{{profile_pic}}" class="profile_pic"/>
+                      <div class="ct">change and click save image</div>
+
+                      <!-- <div class="sel_prof">
+                        <div class="text">change and click save image</div>
+                      </div> -->
+                    </label>
+
+
+                </td>
+                <td>
+                    <div class="pro_card">
+                      <div class="row pro_name">
+                        {{person_name}}
+                      </div>
+                      <div class="pro_email">{{person_email}}</div>
+                      <div class="row">
+                          <span>{{room_name}}</span> - <span>{{room_code}}</span>
+                      </div>
+                    </div>
+                    <div class="row" style="position:relative;top:5px!important;">
+                      <a ng-click="update_profile_pic()">Save Image</a> | <a ui-sref="members">View Profile</a>
+                    </div>
+                </td>
+              </tr>
+              <tr style="border-top:1px solid #fff !important;">
+                <td>
+                  <span class="pro_btn" ui-sref="edit_my_details">Edit Profile</span>
+                </td>
+                <td>
+                  <span class="pro_btn pro_btn_rt" ng-click="signout()">Signout</span>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+      </div>
+    </div>
+
+    <!-- <div class="col-md-2"></div> -->
+</div>
+
+<!-- <div ui-view class="col-md- 12 subcontent responsive">
+</div> -->
+<div class="subcontent_div">
+<div class="col-md-1">
+</div>
+<div ui-view class="col-md-10 subcontent responsive">
+<div data-loading class="col-md-12 col-sm-12 col-xs-12 loader" autoscroll="false"> </div>
+</div>
+<div class="col-md-1">
+</div>
+</div>
+ <!-- <div class="col-md-12">
+    <div id="room_name">{{room_name}}( {{room_code}} )</div>
+  </div> -->
+
+
+
+  
+
+  
+
+
+
+
+  

@@ -1,0 +1,89 @@
+<div class="col-md-1"></div>
+<div  class="col-md-10 subcontent1 responsive">
+  <div class="col-md-12">
+    <div class="col-md-5">
+      <h3>GET IN TOUCH</h3>
+      <p>Your comments and suggestions are welcome and will assist us in continuously improving our Application.</p><p>Please send us your comments and feedback via email, phone or message...</p>
+      <table class="ctab table"><!-- contacttable -->
+        <tbody>
+          <tr>
+            <td><img src="static/images/messa.png" class="contact_icon"/></td>
+            <td>yaswanth.resource@gmail.com</td>
+          </tr>
+          <tr>
+            <td><img src="static/images/mobile.png" class="contact_icon"/></td>
+            <td>+91 7207828087</td>
+          </tr>
+          <tr>
+            <td><img src="static/images/location.png" class="contact_icon"/></td>
+            <td>Hyderabad</td>
+          </tr>
+        </tbody>
+    </table>
+      
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-5">
+      <h3>CONTACT US</h3>
+      <span class="req_msg">Please Fill out all required fields with (*) mark</span>
+      <div class="col-md-12 text-danger" ng-show="errmsg">{{errmsg}}</div>
+      <div class="col-md-12 text-success" ng-show="successmsg">{{successmsg}}</div>
+      <form name="ContactUsForm" ng-submit="contact(contact.user_name,contact.user_email, contact.subject, contact.message)"  novalidate>
+        <div class="form-group" ng-class="{ 'has-error' : ContactUsForm.user_name.$invalid && !ContactUsForm.user_name.$pristine }">
+          <!-- <label for="user_name">User Name <span>*</span></label> -->
+          <div class="input-group">
+            <input type="text" name="user_name" placeholder="Name..." class="form-control" ng-model="contact.user_name" required>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></span>
+          </div>
+          <small ng-show="ContactUsForm.user_name.$invalid && !ContactUsForm.user_name.$pristine" class="help-block">Name required!</small>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error' : ContactUsForm.user_email.$invalid && !ContactUsForm.user_email.$pristine }">
+          <!-- <label for="user_email">Email <span>*</span></label> -->
+          <div class="input-group">
+            <input type="email" name="user_email" class="form-control" ng-model="contact.user_email"  id="user_email" placeholder="Email..." required>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+          </div>
+          <small class="text-muted" ng-show="ContactUsForm.user_email.$invalid && !ContactUsForm.user_email.$pristine" class="help-block">Email required!</small>
+        </div>
+
+        <!-- <div class="form-group" ng-class="{ 'has-error' : ContactUsForm.mobile_number.$invalid && !ContactUsForm.mobile_number.$pristine }">
+        <div class="input-group">
+          <input type="text"
+                 class="form-control"
+                 name="mobile_number"
+                 placeholder="Phone..."
+                 ng-model="contact.mobile_number"
+                 ng-pattern="/^[0-9]{10}$/"
+                 required maxlength="10">
+          <span class="input-group-addon"><span class="glyphicon glyphicon-earphone"></span></span>
+        </div>
+        <small class="text-muted" ng-show="ContactUsForm.mobile_number.$invalid && !ContactUsForm.mobile_number.$pristine" class="help-block">Mobile Number required!</small>
+      </div> -->
+
+      <div class="form-group" ng-class="{ 'has-error' : ContactUsForm.subject.$invalid && !ContactUsForm.subject.$pristine }">
+          <!-- <label for="subject">Subject <span>*</span></label> -->
+          <div class="input-group">
+            <input type="text" name="subject" placeholder="Subject..." class="form-control" ng-model="contact.subject" required>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></span>
+          </div>
+          <small ng-show="ContactUsForm.subject.$invalid && !ContactUsForm.subject.$pristine" class="help-block">Subject</small>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : ContactUsForm.message.$invalid && !ContactUsForm.message.$pristine }">
+            <!-- <label for="message">Message <span>*</span></label> -->
+            <div class="input-group">
+              <textarea rows="5" cols="50" name="message" class="form-control" ng-model="contact.message" id="message" placeholder="Message..." ></textarea>
+              <span class="input-group-addon"><span class="glyphicon glyphicon-comment"></span></span>
+            </div>
+            <small class="text-muted" ng-show="ContactUsForm.message.$invalid && !ContactUsForm.message.$pristine" class="help-block">Message required!</small>
+        </div>
+
+        <div class="input-group">
+          <button type="submit" class="btn btn-info" ng-disabled="ContactUsForm.$invalid">send</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="ui col-md-1"></div>
+

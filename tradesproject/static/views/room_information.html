@@ -1,0 +1,199 @@
+<div class="col-md-12 crsl_div responsive">
+	<h3>This is our Room</h3>
+	<div id="slides_control" class=" ">
+		<carousel interval="myInterval">
+	        <slide ng-repeat="image in images" active="slide.active">
+	          <img ng-src="{{image.fields.room_images}}" class="rm_images">
+	          <div class="carousel-caption">
+	            <h4>Slide {{$index+1}}</h4>
+	          </div>
+	        </slide>
+	    </carousel>
+	</div>
+</div>
+
+<div class="col-md-12">
+	<h3>Room Information</h3>
+	<div class="col-md-12">
+		<table class="table">
+	      <tr>
+	        <th>City</th>
+	        <td>{{city}}</td>
+	       </tr>
+	       <tr>
+	        <th>Address</th>
+	        <td>{{address}}</td>
+	       </tr>
+	       <tr>
+	        <th>Zipcode</th>
+	        <td>{{zipcode}}</td>
+	       </tr>
+	       <tr>
+	        <th>Description</th>
+	        <td>{{description}}</td>
+	      </tr>
+	     </table>
+	</div>
+</div>
+
+<div class="col-md-12">
+	<h3>Room Facilities</h3>
+    <table class="table table-hover">
+      <tr>
+        <th>Facility</th>
+        <th>Availability</th>
+        <th>Bill</th>
+        <th>Description</th>
+        <th>Delete</th>
+      </tr>
+      <tr ng-repeat="room in data">
+        <td>{{room.fields.utility}}</td>
+        <td>{{room.fields.availability}}</td>
+        <td>{{room.fields.bill}}</td>
+        <td>{{room.fields.description}}</td>
+        <td>
+        	<button ng-click="delete_roominfo(room.pk)" class="btn btn-danger pull-left">Delete</button>
+        </td>
+      </tr>
+     </table>
+</div>
+
+<div class="col-md-12">
+<!- Upload Room Images ->
+		<h3>Upload Room Images Here</h3>
+		<div class="form-group">
+        	<label for="avatar">Upload Room Images</label>
+	        <div class="input-group">
+		        <input type="file" class="form-control" name="room_images" id="room_images" upload-files multiple required/>
+		    	<span class="input-group-addon"><span class="glyphicon glyphicon-picture"></span></span>
+	        </div>
+	        <small class="text-muted" ng-show="adminEntryForm.avatar.$invalid && !adminEntryForm.avatar.$pristine" class="help-block">Profile Picture required!</small>
+        </div>
+	    
+	    <button class="btn btn-info" ng-disable="file_val" ng-click="save_images()">Save</button>
+
+
+        <div class="row">
+        	<div ng-repeat="file in files" class="col-md-4">
+            <p>{{file.name}}</p>
+            </div>  
+        	
+        </div>
+<!- Upload Room Images End->
+</div>
+
+<div class="col-md-12" ng-show="{{rm_info_div}}">
+	<div class="col-md-5">
+	<h3>Add Room Information Here</h3>
+		<span class="req_msg">Please Fill out all required fields with (*) mark</span>
+		<div class="col-md-12 text-danger" ng-show="errmsg">{{errmsg}}</div>
+		<div class="col-md-12 text-success" ng-show="successmsg_rminfo">{{successmsg_rminfo}}</div>
+		<form name="roomoverviewInfoForm" ng-submit="room_overviewinfo(room_ovinfo)"  novalidate>
+
+		<div class="form-group" ng-class="{ 'has-error' : roomoverviewInfoForm.room_city.$invalid && !roomoverviewInfoForm.room_city.$pristine }">
+		  <label for="room_city">City <span>*</span></label>
+		  <div class="input-group">
+		    <input type="text" name="room_city" placeholder="Enter City...." class="form-control" ng-model="room_ovinfo.room_city" required>
+		    <span class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></span>
+		  </div>
+		  <small ng-show="roomoverviewInfoForm.room_city.$invalid && !roomoverviewInfoForm.room_city.$pristine" class="help-block">City required!</small>
+		</div>
+
+		<div class="form-group" ng-class="{ 'has-error' : roomoverviewInfoForm.room_zipcode.$invalid && !roomoverviewInfoForm.room_zipcode.$pristine }">
+		    <label for="room_zipcode">Zipcode <span>*</span></label>
+		    <div class="input-group">
+		        <input  type="text"
+						class="form-control"
+						id="room_zipcode"
+						name="room_zipcode"
+						placeholder="Enter Zipcode"
+						ng-model="room_ovinfo.room_zipcode"
+						ng-pattern="/^[0-9]{6}$/"
+						ng-class="{'error-box':(roomoverviewInfoForm.room_zipcode.$invalid && (submitted || roomoverviewInfoForm.room_zipcode.$touched || roomoverviewInfoForm.room_zipcode.$dirty))}"
+						required maxlength="6">
+		    	<span class="input-group-addon"><span class="glyphicon glyphicon-road"></span></span>
+		    </div>
+		    <small class="text-muted" ng-show="roomoverviewInfoForm.room_zipcode.$invalid && !roomoverviewInfoForm.room_zipcode.$pristine" class="help-block">Zipcode required!</small>
+		</div>
+
+		<div class="form-group" ng-class="{ 'has-error' : roomoverviewInfoForm.room_address.$invalid && !roomoverviewInfoForm.room_address.$pristine }">
+			<label for="room_address">Address <span>*</span></label>
+			<div class="input-group">
+				<textarea rows="5" cols="50" name="room_address" class="form-control" ng-model="room_ovinfo.room_address" id="room_address" placeholder="Enter Address ...." required></textarea>
+				<span class="input-group-addon"><span class="glyphicon glyphicon-comment"></span></span>
+			</div>
+			<small class="text-muted" ng-show="roomoverviewInfoForm.room_address.$invalid && !roomoverviewInfoForm.room_address.$pristine" class="help-block">Address required!</small>
+		</div>
+
+		<div class="form-group" ng-class="{ 'has-error' : roomoverviewInfoForm.room_desc.$invalid && !roomoverviewInfoForm.room_desc.$pristine }">
+			<label for="room_desc">Description <span>*</span></label>
+			<div class="input-group">
+				<textarea rows="5" cols="50" name="room_desc" class="form-control" ng-model="room_ovinfo.room_desc" id="room_desc" placeholder="Enter Description ...." required></textarea>
+				<span class="input-group-addon"><span class="glyphicon glyphicon-comment"></span></span>
+			</div>
+			<small class="text-muted" ng-show="roomoverviewInfoForm.room_desc.$invalid && !roomoverviewInfoForm.room_desc.$pristine" class="help-block">Description required!</small>
+		</div>
+
+		<div class="input-group">
+		  <button type="submit" class="btn btn-info" ng-disabled="roomoverviewInfoForm.$invalid">Add Information</button>
+		</div>
+
+		</form>
+	</div>
+
+	<div class="col-md-1"></div>
+
+	<div class="col-md-5">
+		<h3>Add Room Facilities Here</h3>
+		<span class="req_msg">Please Fill out all required fields with (*) mark</span>
+		<div class="col-md-12 text-danger" ng-show="errmsg">{{errmsg}}</div>
+		<div class="col-md-12 text-success" ng-show="successmsg_rmutl">{{successmsg_rmutl}}</div>
+		<form name="roomInfoForm" ng-submit="add_roominfo(rm_info)" role="form"  novalidate class="">
+			<div class="form-group" ng-class="{ 'has-error' : roomInfoForm.utility.$invalid && !roomInfoForm.utility.$pristine }">
+		        <label for="utility">Facility <span>*</span></label>
+		        <div class="input-group">
+		          <input type="text" name="utility" class="form-control" placeholder="Enter utility" ng-model="rm_info.utility" required/>
+		          <span class="input-group-addon"><span class="glyphicon glyphicon-tag"></span></span>
+		        </div>
+		        <small ng-show="roomInfoForm.utility.$invalid && !roomInfoForm.utility.$pristine" class="help-block">Whats the Facility!</small>
+
+		        <input type="hidden" name="utilityid" class="form-control" ng-model="rm_info.utilityid"/>
+		    </div>
+
+		    <div class="form-group" ng-class="{ 'has-error' : roomInfoForm.availability.$invalid && !roomInfoForm.availability.$pristine }">
+		        <label for="availability">Availability <span>*</span></label>
+		        <div class="input-group">
+			        <select ng-model="rm_info.availability" name="availability" ng-change="avail(rm_info.availability)" placeholder="Select Availability" class="form-control" required>
+			          <option value="">select an option</option>
+			          <option value="yes">Yes</option>
+			          <option value="no">No</option>
+			        </select>
+			        <span class="input-group-addon"><span class="glyphicon glyphicon-question-sign"></span></span>
+			    </div>
+		        <small ng-show="roomInfoForm.availability.$invalid && !roomInfoForm.availability.$pristine" class="help-block">select an option!</small>
+		    </div>
+
+		    <div class="form-group" ng-class="{ 'has-error' : roomInfoForm.bill.$invalid && !roomInfoForm.bill.$pristine }">
+		        <label for="bill">Bill <span>*</span></label>
+		        <div class="input-group">
+		          <input type="text" name="bill" ng-pattern="/^[0-9]{1,7}$/" class="form-control" placeholder="Enter bill" ng-model="rm_info.bill" ng-disabled="rm_info.availability != 'yes'" required/>
+		          <span class="input-group-addon"><span class="glyphicon glyphicon-usd"></span></span>
+		        </div>
+		        <small ng-show="rm_info.availability == 'yes' && rm_info.bill == undefined" class="help-block">{{rm_info.utility}} Availability must requires bill amount</small>
+		        <small ng-show="roomInfoForm.bill.$invalid && !roomInfoForm.bill.$pristine" class="help-block">Whats the Bill!</small>
+		    </div>
+
+		    <div class="form-group" ng-class="{ 'has-error' : roomInfoForm.description.$invalid && !roomInfoForm.description.$pristine }">
+	          <label for="description">Description <span>*</span></label>
+	          <div class="input-group">
+	            <textarea rows="5" cols="50" name="description" class="form-control" ng-model="rm_info.description" id="description" placeholder="Enter Description ...." required></textarea>
+	            <span class="input-group-addon"><span class="glyphicon glyphicon-comment"></span></span>
+	          </div>
+	          <small class="text-muted" ng-show="roomInfoForm.description.$invalid && !roomInfoForm.description.$pristine" class="help-block">Description required!</small>
+		    </div>
+
+		    <button type="submit" class="btn btn-info" ng-model="sub" ng-disabled="roomInfoForm.$invalid">Add Facilities</button>
+		</form>
+	</div>
+</div>
+

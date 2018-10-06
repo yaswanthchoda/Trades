@@ -1,0 +1,109 @@
+`<!-- <button ng-click="get_all_users()">Get All Users</button>
+ --> 
+
+  <div class="col-md-5">    
+  <h3>Add Items</h3>
+  <span class="req_msg">Please Fill out all required fields with (*) mark</span>
+  <div class="col-md-12 text-danger" ng-show="errmsg">{{errmsg}}</div>
+  <div class="col-md-12 text-success" ng-show="successmsg">{{successmsg}}</div>
+  <div class="col-md-12 text-success" style="color: #071aef !important;font-family: arial;font-style: italic;font-weight: 600;" ng-show="successmsg">{{user_msg}}</div>
+  <form name="addItemForm" ng-submit="add_item(item_info)"  novalidate>
+      <div class="form-group" ng-class="{ 'has-error' : addItemForm.item_name.$invalid && !addItemForm.item_name.$pristine }">
+        <label>Item Name <span>*</span></label>
+        <div class="input-group">
+          <input type="text" name="item_name" class="form-control" placeholder="Item Name" ng-model="item_info.item_name" required>
+          <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+        </div>
+        <small ng-show="addItemForm.item_name.$invalid && !addItemForm.item_name.$pristine" class="help-block">Whats the Item!</small>
+      </div>
+
+      <div class="form-group" ng-class="{ 'has-error' : addItemForm.item_packs.$invalid && !addItemForm.item_packs.$pristine }">
+        <label for="item_packs">item Pack <span>*</span></label>
+        <div class="input-group">
+          <input type="text"
+                 class="form-control"
+                 id="item_packs"
+                 name="item_packs"
+                 placeholder="Enter your item_packs"
+                 ng-model="item_info.item_packs"
+                 ng-class="{'error-box':(registrationForm.item_packs.$invalid && (submitted || registrationForm.item_packs.$touched || registrationForm.item_packs.$dirty))}"
+                 required maxlength="6">
+          <span class="input-group-addon"><span class="glyphicon glyphicon-road"></span></span>
+        </div>
+        <small class="text-muted" ng-show="addItemForm.item_packs.$invalid && !addItemForm.item_packs.$pristine" class="help-block">item Pack required!</small>
+      </div>
+
+      <div class="form-group" ng-class="{ 'has-error' : addItemForm.items_per_pack.$invalid && !addItemForm.items_per_pack.$pristine }">
+        <label for="items_per_pack">Items per Pack <span>*</span></label>
+        <div class="input-group">
+          <input type="text"
+                 class="form-control"
+                 id="items_per_pack"
+                 name="items_per_pack"
+                 placeholder="Enter your items_per_pack"
+                 ng-model="item_info.items_per_pack"
+                 ng-class="{'error-box':(registrationForm.items_per_pack.$invalid && (submitted || registrationForm.items_per_pack.$touched || registrationForm.items_per_pack.$dirty))}"
+                 required maxlength="6">
+          <span class="input-group-addon"><span class="glyphicon glyphicon-road"></span></span>
+        </div>
+        <small class="text-muted" ng-show="addItemForm.items_per_pack.$invalid && !addItemForm.items_per_pack.$pristine" class="help-block">Items per Pack required!</small>
+      </div>
+      
+      <div class="form-group" ng-class="{ 'has-error' : addItemForm.item_cost.$invalid && !addItemForm.item_cost.$pristine }">
+        <label for="item_cost">Item Cost <span>*</span></label>
+        <div class="input-group">
+          <input type="text"
+                 class="form-control"
+                 id="item_cost"
+                 name="item_cost"
+                 placeholder="Enter your item_cost"
+                 ng-model="item_info.item_cost"
+                 ng-class="{'error-box':(registrationForm.item_cost.$invalid && (submitted || registrationForm.item_cost.$touched || registrationForm.item_cost.$dirty))}"
+                 required maxlength="6">
+          <span class="input-group-addon"><span class="glyphicon glyphicon-road"></span></span>
+        </div>
+        <small class="text-muted" ng-show="addItemForm.item_cost.$invalid && !addItemForm.item_cost.$pristine" class="help-block">Item Cost required!</small>
+      </div>
+
+      <div class="form-group" ng-class="{ 'has-error' : addItemForm.notes.$invalid && !addItemForm.notes.$pristine }">
+        <label>Notes <span>*</span></label>
+        <div class="input-group">
+          <input type="text" name="notes" class="form-control" placeholder="Notes" ng-model="item_info.notes" required>
+          <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+        </div>
+        <small ng-show="addItemForm.notes.$invalid && !addItemForm.notes.$pristine" class="help-block">Whats the Item!</small>
+      </div>
+
+      <div class="input-group">
+        <button  class="btn btn-info" ng-disabled="addItemForm.$invalid">Add Item</button>
+      </div>
+  </form>
+  </div>
+
+  <div class="col-md-1"></div>
+
+  <div class="col-md-5">
+    
+    <div class="row"> 
+      <h3>Remove User</h3>
+      <small class="text-muted" ng-show="mail_success" class="help-block"><span class="tbl_per">{{mail_success}}</span></small>
+      <small class="text-muted" ng-show="removed_person" class="help-block"><span class="tbl_per">{{removed_person}}</span> has been removed from Room successfully</small>
+      <div class="form-group">
+        <label>Room Members List</label>
+        <select name="rmv_usr" 
+                      class="Sitedropdown form-control"          
+                      ng-model="rmv_usr" 
+                      ng-options="user_data.pk as user_data.fields.person_name for user_data in users_list"
+                      placeholder="Enter Email"
+                      required
+                      >
+                <option value="">Select Member to Remove</option> 
+              </select>
+      </div>
+
+      <button ng-click="remove_user(rmv_usr)" ng-disabled="!rmv_usr" class="btn btn-info pull-left">Remove</button>
+    </div>
+
+    
+</div>
+

@@ -1,0 +1,45 @@
+<div class="ui col-md-3"></div>
+<div class="ng col-md-6  subcontent responsive">
+<div class="col-md-12">
+  <h3 style="text-align: center;">Create Shop</h3>
+  <span class="req_msg">Please Fill out all required fields with (*) mark</span>
+  <div class="col-md-12 text-danger" ng-show="errmsg">{{errmsg}}</div>
+  <div class="col-md-12 text-success" ng-show="successmsg">{{successmsg}}</div>
+  <form name="createShopForm" ng-submit="create_shop(shop_details)"  novalidate>
+    <div class="form-group" ng-class="{ 'has-error' : createShopForm.shopname.$invalid && !createShopForm.shopname.$pristine }">
+        <label>Shop Name <span>*</span></label>
+        <div class="input-group">
+          <input type="text" name="shopname" class="form-control" placeholder="Shop Name" ng-model="shop_details.shopname" required>
+          <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+        </div>
+        <small ng-show="createShopForm.shopname.$invalid && !createShopForm.shopname.$pristine" class="help-block">Shop Name required!</small>
+      </div>
+
+      <div class="form-group" ng-class="{ 'has-error' : createShopForm.shoplicence.$invalid && !createShopForm.shoplicence.$pristine }">
+        <label>Shop License <span>*</span></label>
+        <div class="input-group">
+          <input type="text" name="shoplicence" class="form-control" placeholder="Shop License" ng-model="shop_details.shoplicence" required>
+          <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+        </div>
+        <small ng-show="createShopForm.shoplicence.$invalid && !createShopForm.shoplicence.$pristine" class="help-block">Shop License required!</small>
+      </div>
+
+      <div class="form-group" ng-class="{ 'has-error' : createShopForm.description.$invalid && !createShopForm.description.$pristine }">
+          <label for="description">Shop Description</label>
+          <div class="input-group">
+            <textarea rows="5" cols="50" name="description" class="form-control" ng-model="shop_details.description" id="description" placeholder="Enter Shop Description ...." required></textarea>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-comment"></span></span>
+          </div>
+          <small class="text-muted" ng-show="createShopForm.description.$invalid && !createShopForm.description.$pristine" class="help-block">Shop Description required!</small>
+      </div>
+
+    <button type="submit" class="btn btn-info" ng-disabled="createShopForm.$invalid">Create Shop</button>
+  </form>
+  </div>
+
+  <div class="col-md-12">
+    <a ui-sref="login">Login</a>
+  </div>
+</div>
+<div class="ui col-md-3"></div>
+
