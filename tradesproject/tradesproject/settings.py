@@ -40,7 +40,12 @@ INSTALLED_APPS = [
     'tradesapp',
     'rest_framework',
     'rest_framework.authtoken',
+    'django_jenkins',
 ]
+
+JENKINS_TASKS = (
+    'django_jenkins.tasks.run_pep8',
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
