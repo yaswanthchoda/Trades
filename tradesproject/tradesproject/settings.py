@@ -28,20 +28,26 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
-# Application definition
+# Application definition\
 
-INSTALLED_APPS = [
+PROJECT_APPS = [
+            'tradesapp'
+            ]
+
+
+PREREQ_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'tradesapp',
     'rest_framework',
     'rest_framework.authtoken',
     'django_jenkins',
 ]
+
+INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS
 
 JENKINS_TASKS = (
     'django_jenkins.tasks.run_pep8',
